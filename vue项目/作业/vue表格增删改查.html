@@ -43,6 +43,10 @@
           <label for="age">年龄:</label>
           <input type="text" id="age" v-model="formData.age" required />
         </div>
+        <div>
+          <label for="sex">性别</label>
+          <input type="text" id="sex" v-model="formData.sex" />
+        </div>
         <button type="submit" v-if="!isEditing" class="layui-btn">添加</button>
         <button type="submit" v-if="isEditing" class="layui-btn">更新</button>
       </form>
@@ -61,6 +65,7 @@
           <tr v-for="item in items" :key="item.id">
             <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
+            <td>{{ item.sex }}</td>
             <td>{{ item.age }}</td>
             <td>
               <button @click="editItem(item)" class="layui-btn">编辑</button>
@@ -79,9 +84,10 @@
       el: "#box",
       data() {
         return {
-          items: [{ id: 1, name: "爱丽丝", age: 16 }],
+          items: [{ id: 1, name: "爱丽丝", sex: "女", age: 16 }],
           formData: {
             name: "",
+            sex: "",
             age: "",
           },
           isEditing: false,
@@ -95,6 +101,7 @@
             this.items.push({
               id,
               name: this.formData.name,
+              sex: this.formData.sex,
               age: this.formData.age,
             });
           } else {
@@ -106,6 +113,7 @@
               this.items.splice(index, 1, {
                 id: this.formData.id,
                 name: this.formData.name,
+                sex: this.formData.sex,
                 age: this.formData.age,
               });
             }
@@ -117,6 +125,7 @@
           this.isEditing = true;
           this.formData.id = item.id;
           this.formData.name = item.name;
+          this.formData.sex = item.sex;
           this.formData.age = item.age;
         },
         deleteItem(id) {
@@ -130,6 +139,7 @@
           this.formData.id = "";
           this.formData.name = "";
           this.formData.age = "";
+          this.formData.sex = "";
         },
       },
     });
