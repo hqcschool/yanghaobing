@@ -42,8 +42,8 @@
           <label for="age">年龄:</label>
           <input type="text" id="age" v-model="formData.age" required />
         </div>
-        <button type="submit" v-if="!isEditing">添加</button>
-        <button type="submit" v-if="isEditing">更新</button>
+        <button type="submit" v-if="!isEditing" class="layui-btn">添加</button>
+        <button type="submit" v-if="isEditing" class="layui-btn">更新</button>
       </form>
 
       <table border="1">
@@ -62,8 +62,10 @@
             <td>{{ item.name }}</td>
             <td>{{ item.age }}</td>
             <td>
-              <button @click="editItem(item)">编辑</button>
-              <button @click="deleteItem(item.id)">删除</button>
+              <button @click="editItem(item)" class="layui-btn">编辑</button>
+              <button @click="deleteItem(item.id)" class="layui-btn">
+                删除
+              </button>
             </td>
           </tr>
         </tbody>
@@ -76,7 +78,7 @@
       el: "#box",
       data() {
         return {
-          items: [],
+          items: [{ id: 1, name: "爱丽丝", age: 16 }],
           formData: {
             name: "",
             age: "",
