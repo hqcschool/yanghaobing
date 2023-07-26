@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="../../插件/layui-v2.8.11/layui-v2.8.11/layui/css/layui.css" />
+    <script src="../../插件/layui-v2.8.11/layui-v2.8.11/layui/layui.js"></script>
+    <script src="../js/vue.js"></script>
+  </head>
+  <style>
+    #box {
+      width: 1200px;
+      height: 500px;
+      border: 1px solid red;
+      margin: auto;
+      text-align: center;
+    }
+    table {
+      width: 1200px;
+      border: 2px solid black;
+      margin-top: auto;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    td,
+    th {
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <form @submit.prevent="handleSubmit">
+        <div>
+          <label for="name">名字</label>
+          <input type="text" id="name" v-model="formData.name" required />
+        </div>
+        <div>
+          <label for="age">年龄:</label>
+          <input type="text" id="age" v-model="formData.age" required />
+        </div>
+        <button type="submit" v-if="!isEditing">添加</button>
+        <button type="submit" v-if="isEditing">更新</button>
+      </form>
+
+      <table border="1">
+        <h1>学生表单</h1>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>名字</th>
+            <th>年龄</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in items" :key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.age }}</td>
+            <td>
+              <button @click="editItem(item)">编辑</button>
+              <button @click="deleteItem(item.id)">删除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    new Vue({
+      el: "#box",
+      data() {
+        return {
+          items: [],
+          formData: {
+            name: "",
+            age: "",
+          },
+          isEditing: false,
+        };
+      },
+      methods: {
+        handleSubmit() {
+          if (!this.isEditing) {
+            // 新增数据
+            const id = this.items.length + 1;
+            this.items.push({
+              id,
+              name: this.formData.name,
+              age: this.formData.age,
+            });
+          } else {
+            // 更新数据
+            const index = this.items.findIndex(
+              (item) => item.id === this.formData.id
+            );
+            if (index !== -1) {
+              this.items.splice(index, 1, {
+                id: this.formData.id,
+                name: this.formData.name,
+                age: this.formData.age,
+              });
+            }
+            this.isEditing = false;
+          }
+          this.resetForm();
+        },
+        editItem(item) {
+          this.isEditing = true;
+          this.formData.id = item.id;
+          this.formData.name = item.name;
+          this.formData.age = item.age;
+        },
+        deleteItem(id) {
+          const index = this.items.findIndex((item) => item.id === id);
+          if (index !== -1) {
+            this.items.splice(index, 1);
+          }
+          this.resetForm();
+        },
+        resetForm() {
+          this.formData.id = "";
+          this.formData.name = "";
+          this.formData.age = "";
+        },
+      },
+    });
+  </script>
+</html>

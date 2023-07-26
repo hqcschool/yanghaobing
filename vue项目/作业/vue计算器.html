@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/vue.js"></script>
+  </head>
+  <style>
+    #box {
+      width: 200px;
+      height: 256px;
+      border: 1px solid black;
+    }
+    button {
+      width: 50px;
+      height: 50px;
+    }
+    input {
+      width: 192px;
+      height: 50px;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <input type="text" v-model="display" readonly />
+      <div>
+        <button
+          v-for="button in buttons"
+          :key="button"
+          @click="headlebutton(button)">
+          {{button}}
+        </button>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    new Vue({
+      el: "#box",
+      data: {
+        display: "",
+        buttons: [
+          "7",
+          "8",
+          "9",
+          "/",
+          "4",
+          "5",
+          "6",
+          "*",
+          "1",
+          "2",
+          "3",
+          "-",
+          "0",
+          ".",
+          "=",
+          "+",
+          "c",
+        ],
+      },
+      methods: {
+        headlebutton(button) {
+          if (button === "=") {
+            this.calculate();
+          } else if (button === "c") {
+            this.deletefun();
+          } else {
+            this.display += button;
+          }
+        },
+        deletefun() {
+          this.display = this.display.slice(0, -1);
+        },
+        calculate() {
+          try {
+            this.display = eval(this.display);
+          } catch (error) {
+            this.display = "Error";
+          }
+        },
+      },
+    });
+  </script>
+</html>

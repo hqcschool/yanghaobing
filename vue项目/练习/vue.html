@@ -13,33 +13,88 @@
       width: 400px;
       height: 400px;
     }
+    #box {
+      width: 500px;
+      height: 500px;
+      border: 1px solid;
+      overflow: hidden;
+      /* font-family: "楷体"; */
+    }
   </style>
   <body>
-    <div id="box">
-      <!-- {{message}} -->
+    <div id="box" :style="">
+      <h1>{{a}}</h1>
+      <input type="text" v-model="message" />
+      <audio
+        src="../../音频/暴雪1(Snow Storm 1)_爱给网_aigei_com.mp3"
+        controls></audio>
+      <!-- <button @click="reverseMessage">反转信息</button> -->
+      <!-- <span v-bind:title="message">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息
+      </span> -->
       <!-- <a v-bind:href="url">图片</a> -->
-      <input type="text" v-model:value="val" />
-      <img :src="url" alt="" />
+      <!-- <input type="text" v-model:value="val" /> -->
+      <!-- <a href="http://www.baidu.com" @click.prevent="jump">
+        <img :src="url" alt="" />
+      </a> -->
+
+      <!-- <button @click="fun">点击</button> -->
+      <!-- <ol>
+        <li v-for="todo in todos">{{todo.text}}</li>
+      </ol> -->
     </div>
   </body>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
   <script>
+    var data = { a: 1 };
     var vm = new Vue({
       el: "#box",
-      data() {
-        console.log("@@@", this);
-        return {
-          val: "你好",
-          url: "https://img2.baidu.com/it/u=1574304958,174721775&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1690390800&t=669ded7c75f504b1c5ea669ce3475ca3",
-        };
-      },
+      data: data,
+
       // data: {
-      //   val: "你好前端linux",
-      //   url: "https://img2.baidu.com/it/u=1574304958,174721775&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1690390800&t=669ded7c75f504b1c5ea669ce3475ca3",
+      //   message: "天道酬勤",
+      //   // seen: true,
+      //   // message: "页面加载于" + new Date().toLocaleString(),
+      //   // todos: [
+      //   //   { text: "学习javacript" },
+      //   //   { text: "学习vue" },
+      //   //   { text: "整个项目" },
+      //   // ],
+      // },
+      // methods: {
+      //   reverseMessage: function () {
+      //     this.message = this.message.split("").reverse().join("");
+      //   },
+      // },
+      // data() {
+      //   return {
+      //     bgcolor: "#000000",
+      //     color: "red",
+      //     family: "新宋体",
+      //     // fun: function () {
+      //     //   alert("123");
+      //     // },
+      //     // val: "你好",
+      //     // url: "https://img2.baidu.com/it/u=1574304958,174721775&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1690390800&t=669ded7c75f504b1c5ea669ce3475ca3",
+      //   };
+      // },
+      // methods: {
+      //   fun() {
+      //     if (this.color === "red") {
+      //       this.color = "#FDFC47";
+      //     } else {
+      //       this.color = "#0072ff";
+      //     }
+      //     if (this.bgcolor === "#000000") {
+      //       this.bgcolor = "red";
+      //     } else {
+      //       this.bgcolor = "#FDFC47";
+      //     }
+      //   },
       // },
     });
-    // vm.$mount("#box");
-    // console.log(vm);
+    data.a = "hi ...... new ..."; // vm.$mount("#box");
+    console.log(vm);
     // var person = {
     //   name: "张三",
     //   sex: "男",
