@@ -38,7 +38,7 @@
         <img :src="url" alt="" />
       </a> -->
 
-      <!-- <button @click="fun">点击</button> -->
+      <button @click="fun">点击</button>
       <!-- <ol>
         <li v-for="todo in todos">{{todo.text}}</li>
       </ol> -->
@@ -46,10 +46,10 @@
   </body>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
   <script>
-    var data = { a: 1 };
+    // var data = { a: 1 };
     var vm = new Vue({
       el: "#box",
-      data: data,
+      // data: data,
 
       // data: {
       //   message: "天道酬勤",
@@ -66,34 +66,34 @@
       //     this.message = this.message.split("").reverse().join("");
       //   },
       // },
-      // data() {
-      //   return {
-      //     bgcolor: "#000000",
-      //     color: "red",
-      //     family: "新宋体",
-      //     // fun: function () {
-      //     //   alert("123");
-      //     // },
-      //     // val: "你好",
-      //     // url: "https://img2.baidu.com/it/u=1574304958,174721775&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1690390800&t=669ded7c75f504b1c5ea669ce3475ca3",
-      //   };
-      // },
-      // methods: {
-      //   fun() {
-      //     if (this.color === "red") {
-      //       this.color = "#FDFC47";
-      //     } else {
-      //       this.color = "#0072ff";
-      //     }
-      //     if (this.bgcolor === "#000000") {
-      //       this.bgcolor = "red";
-      //     } else {
-      //       this.bgcolor = "#FDFC47";
-      //     }
-      //   },
-      // },
+      data() {
+        return {
+          bgcolor: "#000000",
+          color: "red",
+          family: "新宋体",
+          // fun: function () {
+          //   alert("123");
+          // },
+          // val: "你好",
+          // url: "https://img2.baidu.com/it/u=1574304958,174721775&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1690390800&t=669ded7c75f504b1c5ea669ce3475ca3",
+        };
+      },
+      methods: {
+        fun() {
+          if (this.color === "red") {
+            this.color = "#FDFC47";
+          } else {
+            this.color = "#0072ff";
+          }
+          if (this.bgcolor === "#000000") {
+            this.bgcolor = "red";
+          } else {
+            this.bgcolor = "#FDFC47";
+          }
+        },
+      },
     });
-    data.a = "hi ...... new ..."; // vm.$mount("#box");
+    // data.a = "hi ...... new ..."; // vm.$mount("#box");
     console.log(vm);
     // var person = {
     //   name: "张三",

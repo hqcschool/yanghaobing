@@ -45,8 +45,13 @@
         </div>
         <div>
           <label for="sex">性别</label>
-          <input type="text" id="sex" v-model="formData.sex" />
+          <input type="text" id="sex" v-model="formData.sex" required />
         </div>
+        <div>
+          <label for="search">查询</label>
+          <input type="text" v-model="keyword" @input="search" />
+        </div>
+
         <button type="submit" v-if="!isEditing" class="layui-btn">添加</button>
         <button type="submit" v-if="isEditing" class="layui-btn">更新</button>
       </form>
@@ -58,6 +63,7 @@
             <th>ID</th>
             <th>名字</th>
             <th>年龄</th>
+            <th>性别</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -84,6 +90,8 @@
       el: "#box",
       data() {
         return {
+          keyword: "",
+          filteredItems: [],
           items: [{ id: 1, name: "爱丽丝", sex: "女", age: 16 }],
           formData: {
             name: "",
@@ -94,6 +102,11 @@
         };
       },
       methods: {
+        search() {
+          this.filteredItems = this.items.filter((item) =>
+            item.includes(this.item)
+          );
+        },
         handleSubmit() {
           if (!this.isEditing) {
             // 新增数据

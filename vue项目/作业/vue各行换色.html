@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/vue.js"></script>
+  </head>
+  <style>
+    .active {
+      width: 300px;
+      height: 300px;
+      border: 1px solid black;
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 800px;
+    }
+    th,
+    td {
+      text-align: center;
+    }
+    .even-row {
+      background-color: #f953c6;
+    }
+    .odd-row {
+      background-color: #f5af19;
+    }
+    #tr:hover {
+      background-color: red;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <form :class="active">
+        <h1>人员名单</h1>
+        <div>
+          <label for="name"> 名字 </label>
+          <input type="text" id="name" v-model="formData.name" required />
+        </div>
+        <div>
+          <select name="" id="sex" v-model="formData.sex" required>
+            <option value="男">男</option>
+            <option value="女">女</option>
+          </select>
+        </div>
+        <div>
+          <label for="age">年龄</label>
+          <input type="text" id="age" v-model="formData.age" required />
+        </div>
+        <button @click.prevent="addsubmit">提交</button>
+      </form>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>
+              全选
+              <input
+                type="checkbox"
+                v-model="selectAll"
+                @change="toggleSelectAll" />
+            </th>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(item,index) in items"
+            :key="index"
+            :class="getrowclass(index)"
+            id="tr">
+            <td>
+              <input
+                type="checkbox"
+                v-model="item.checked"
+                @change="checkComplete" />
+            </td>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.sex}}</td>
+            <td>{{item.age}}</td>
+            <td>
+              <button @click="moveUp(index)" :disabled="index===1">上移</button>
+              <button
+                @click="moveDown(index)"
+                :disabled="index === item.length - 1">
+                下移
+              </button>
+              <button @click="del(index)">删除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    var vm = new Vue({
+      el: "#box",
+      data: {
+        active: "active",
+        selectAll: false,
+        items: [
+          {
+            id: 1,
+            name: "郭靖",
+            sex: "男",
+            age: 28,
+            checked: false,
+          },
+          {
+            id: 2,
+            name: "爱丽丝",
+            sex: "女",
+            age: 66,
+            checked: false,
+          },
+          {
+            id: 3,
+            name: "张明明",
+            sex: "男",
+            age: 18,
+            checked: false,
+          },
+          {
+            id: 4,
+            name: "东方不败",
+            sex: "男",
+            age: 20,
+            checked: false,
+          },
+          {
+            id: 5,
+            name: "黄蓉",
+            sex: "女",
+            age: 26,
+            checked: false,
+          },
+          {
+            id: 6,
+            name: "黄蓉",
+            sex: "女",
+            age: 26,
+            checked: false,
+          },
+        ],
+        formData: {
+          name: "",
+          age: "",
+          sex: "",
+          checked: false,
+        },
+      },
+      methods: {
+        addsubmit() {
+          const id = this.items.length + 1;
+          this.items.push({
+            id: id,
+            name: this.formData.name,
+            age: this.formData.age,
+            sex: this.formData.sex,
+          });
+          //   this.resetfrom();
+        },
+        // active() {
+        //   active: this.active;
+        // },
+        del(index) {
+          this.items.splice(index, 1);
+        },
+        getrowclass(index) {
+          return index % 2 === 0 ? "even-row" : "odd-row";
+        },
+
+        toggleSelectAll() {
+          this.selectAll = !this.selectAll;
+          this.items.forEach((item) => {
+            item.checked = this.selectAll;
+          });
+        },
+        checkComplete() {
+          this.selectAll = this.items.every((item) => {
+            return item.checked;
+          });
+        },
+        moveUp(index) {
+          console.log(666);
+          if (index > 0) {
+            const temp = this.item[index];
+            this.item.splice(index, 1);
+            this.item.splice(index - 1, 0, temp);
+          }
+        },
+        moveDown(index) {
+          console.log(123);
+          if (index < this.item.length - 1) {
+            const temp = this.item[index];
+            this.items.splice(index, 1);
+            this.items.splice(index + 1, 0, temp);
+          }
+        },
+      },
+      computed: {
+        isAllSelected: {
+          get() {
+            return this.selectAll;
+          },
+          set(value) {
+            this.selectAll = value;
+          },
+        },
+      },
+
+      //   resetform() {
+      //     this.formData.id = "";
+      //     this.formData.name = "";
+      //     this.formData.age = "";
+      //     this.formData.sex = "";
+      //   },
+      watch: {
+        item: {
+          handler() {
+            this.selectAll = this.item.every((item) => item.Checked);
+          },
+          deep: true,
+        },
+      },
+    });
+  </script>
+</html>

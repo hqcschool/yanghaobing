@@ -10,25 +10,38 @@
   </head>
   <style></style>
   <body>
-    <div id="box">
-      <table border="1">
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>age</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </table>
-    </div>
+    <div id="box">{{msg}}</div>
   </body>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
   <script>
-    new Vue({
+    var vm = new Vue({
       el: "#box",
       data: {
-        expression: "true",
-        message: "hello wrold",
+        msg: "hello world",
+        user: {
+          name: "张三",
+          old: "18",
+        },
+      },
+      computed: {},
+      watch: {
+        // "user.old": function (newvalue, oldvalue) {
+        //   console.log("新" + newvalue, "旧" + oldvalue);
+        // },
+        user: {
+          handler(newValue, oldValue) {
+            console.log(newValue, oldValue);
+          },
+          deep: true,
+        },
+        // msg: {
+        //   handler(newvalue, oldvalue) {
+        //     console.log("有人修改");
+        //     setTimeout(() => {
+        //       this.msg = "今天天气好晴朗处处好风光";
+        //     }, 2000);
+        //   },
+        // },
       },
     });
   </script>
