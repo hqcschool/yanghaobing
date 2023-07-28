@@ -66,6 +66,7 @@
             </th>
             <th>编号</th>
             <th>姓名</th>
+
             <th>性别</th>
             <th>年龄</th>
             <th>操作</th>
@@ -88,10 +89,12 @@
             <td>{{item.sex}}</td>
             <td>{{item.age}}</td>
             <td>
-              <button @click="moveUp(index)" :disabled="index===1">上移</button>
+              <button @click="moveUp(index)" :disabled="index === 0">
+                上移
+              </button>
               <button
                 @click="moveDown(index)"
-                :disabled="index === item.length - 1">
+                :disabled="index === items.length - 1">
                 下移
               </button>
               <button @click="del(index)">删除</button>
@@ -188,17 +191,17 @@
           });
         },
         moveUp(index) {
-          console.log(666);
+          console.log(123);
           if (index > 0) {
-            const temp = this.item[index];
-            this.item.splice(index, 1);
-            this.item.splice(index - 1, 0, temp);
+            const temp = this.items[index];
+            this.items.splice(index, 1);
+            this.items.splice(index - 1, 0, temp);
           }
         },
         moveDown(index) {
-          console.log(123);
-          if (index < this.item.length - 1) {
-            const temp = this.item[index];
+          console.log(666);
+          if (index < this.items.length - 1) {
+            const temp = this.items[index];
             this.items.splice(index, 1);
             this.items.splice(index + 1, 0, temp);
           }

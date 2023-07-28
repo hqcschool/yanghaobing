@@ -28,6 +28,7 @@
   <body>
     <div id="box">
       <input type="text" v-model="display" readonly />
+      <a href="url">里</a>
       <div>
         <button
           v-for="button in buttons"
@@ -42,7 +43,9 @@
   <script>
     new Vue({
       el: "#box",
+
       data: {
+        url: "../练习/vue.html",
         display: "",
         buttons: [
           "7",

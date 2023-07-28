@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../sass/购物车考试.css" />
+    <script src="../js/vue.js"></script>
+  </head>
+  <style></style>
+
+  <body>
+    <div id="box">
+      <div class="header">
+        <div
+          class="header-content"
+          v-for="(item,index) in items"
+          :key="index"
+          @click="addlist(index)">
+          <img :src="item.url" alt="" />
+          <span id="pir">特卖价</span>
+          <h2>{{item.price}}</h2>
+          <span class="cost">{{item.origin}}</span>
+          <span id="dis">{{item.discount}}</span>
+          <p>{{item.referral}}</p>
+        </div>
+      </div>
+      <div class="table">
+        <div class="table-hader">
+          <h1>特价商品</h1>
+          <span>20 ：00</span>
+        </div>
+        <table border="1">
+          <thead>
+            <th>商品</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>操作</th>
+          </thead>
+          <tbody>
+            <tr v-for="(item,index) in users " :key="index">
+              <td>
+                <div id="che">
+                  <input type="checkbox" name="" id="chaeck" />
+                </div>
+                <img :src="item.url" alt="" />
+                <div id="useed">{{item.referral}}</div>
+              </td>
+              <td>{{item.price}}</td>
+              <td>
+                <button id="sort" @click="sort(index)">-</button>
+                <span id="num">{{item.num}}</span>
+                <button id="jia" @click="jia(index)">+</button>
+              </td>
+              <td><a @click="del(index)">删除</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="footer">
+          <div class="footer-header">
+            <select name="" id="">
+              <option value="使用优惠券">请使用优惠券</option>
+              <option value="120元优惠">120元优惠</option>
+              <option value="200元优惠">200元优惠</option>
+              <option value="500元优惠">500元优惠</option>
+              <option value="600元优惠">600元优惠</option>
+            </select>
+          </div>
+          <div class="footer-center">
+            <div class="tot">
+              共
+              <span>￥{{sum}}</span>
+              件商品&nbsp;&nbsp;商品金额
+              <span>￥0</span>
+            </div>
+            <div>
+              总金额（含运费）
+              <span>￥0</span>
+            </div>
+          </div>
+          <div class="clear"></div>
+          <div class="footer-down">
+            <a class="footer-a">立刻结算</a>
+            <div>
+              <p>在倒计时结束前结算</p>
+              <span>
+                <svg
+                  t="1690545991428"
+                  class="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="1479"
+                  width="16"
+                  height="16">
+                  <path
+                    d="M512 888c207.66 0 376-168.34 376-376S719.66 136 512 136 136 304.34 136 512s168.34 376 376 376z m0 72C264.576 960 64 759.424 64 512S264.576 64 512 64s448 200.576 448 448-200.576 448-448 448z"
+                    fill="#5090F1"
+                    p-id="1480"></path>
+                  <path
+                    d="M480 760m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z"
+                    fill="#5090F1"
+                    p-id="1481"></path>
+                  <path
+                    d="M512 612v68a8 8 0 0 1-8 8h-48a8 8 0 0 1-8-8v-68c0-35.346 28.654-64 64-64 71.797 0 130-58.203 130-130S583.797 288 512 288 382 346.203 382 418H318C318 310.857 404.857 224 512 224s194 86.857 194 194-86.857 194-194 194z"
+                    fill="#5090F1"
+                    p-id="1482"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <script>
+      new Vue({
+        el: "#box",
+
+        data: {
+          sum: 1,
+          items: [
+            {
+              id: 1,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/130600/2023/0718/123/20fb4de8-404e-49b2-aa12-537ec19cd3dd_235x235_90.jpg",
+              price: "￥198",
+              origin: "￥689",
+              discount: "2折",
+              referral:
+                "【假两件撞色织带连衣裙】2023夏季新品泡泡袖气质短款直筒裙",
+              datetime: "2023-7-28 17:00",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 2,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/606859/2023/0415/189/ede03b87-444b-45f8-8571-7239c466b39d_235x235_90.jpg",
+              price: "￥199",
+              origin: "￥2426",
+              discount: "2.1折",
+              referral: "里埃蒂Rieti欧美风立裁撞色翻领短袖连衣裙2023夏季新款",
+              datetime: "2023-7-28 17:29",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 3,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/2023/06/07/168/01672c33-b54c-45ad-9888-ffd4c78dc865_235x235_90.jpg",
+              price: "￥119",
+              origin: "￥638",
+              discount: "1.9折",
+              referral:
+                "【夏日出游必备质感收腰几何色块】2023年夏季新款气质连衣裙",
+              datetime: "2023-7-28 17:31",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 4,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/2023/04/20/107/8f2d8009-22bc-4c1d-af05-dd982903beb6_235x235_90.jpg",
+              price: "￥169",
+              origin: "￥799",
+              discount: "2.1折",
+              referral:
+                "【优雅轻熟风收腰连衣裙】2023年夏季新品撞色拼接V领中长裙",
+              datetime: "2023-7-28 17:33",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 5,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00107361/10014935/25972054-4051909554205335552-4051909554205335554-1_235x235_90.jpg",
+              price: "￥199",
+              origin: "￥859",
+              discount: "2.3折",
+              referral:
+                "【凯伊莱文联名】2023夏装新品随机色块印花女式衬衫连衣裙",
+              datetime: "2023-7-28 17:35",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 6,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00145885/10020688/1135004612-682091128456024064-4717316402043891713-1_235x235_90.jpg",
+              price: "￥219",
+              origin: "￥819",
+              discount: "2.7折",
+              referral: "【100%棉连衣裙女2023新款夏】配腰带气质显瘦短袖衬衫裙",
+              datetime: "2023-7-28 17:39",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 7,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/617039/2023/0320/183/f56eca73-834b-426a-b357-02ebec0d0bb1_235x235_90.jpg",
+              price: "￥1296",
+              origin: "￥1499",
+              discount: "8.6折",
+              referral: "vivo iQOO Z7x 80W闪充骁龙695大电池手机",
+              datetime: "2023-7-28 17:40",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 8,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/617039/2023/0523/183/01e2983b-f7d1-4ef3-acdc-57f5bf848739_235x235_90.jpg",
+              price: "￥3096",
+              origin: "￥3299",
+              discount: "9.4折",
+              referral:
+                "【假两件撞色织带连衣裙】2023夏季新品泡泡袖气质短款直筒裙",
+              datetime: "2023-7-28 17:50",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 9,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/635022/2023/0507/47/380a4c54-3428-4abd-b465-620e7e84fb42_235x235_90.jpg",
+              price: "￥3897",
+              origin: "￥4799",
+              discount: "8.1折",
+              referral: "【包鼠套装】小新Air15酷睿15.6英寸学习办公笔记本电脑",
+              datetime: "2023-7-28",
+              stock: 10,
+              num: 1,
+            },
+            {
+              id: 10,
+              url: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/imagespace/2023/03/14/8/d398e5d5-22c8-4926-80ed-d94391dde6f6_235x235_90.jpg",
+              price: "￥4599",
+              origin: "￥5299",
+              discount: "8.7折",
+              referral: "【包鼠套装】ThinkBook14+ 酷睿14英寸轻薄笔记本",
+              datetime: "2023-7-28",
+              stock: 10,
+              num: 1,
+            },
+          ],
+          users: [],
+        },
+        methods: {
+          addlist(index) {
+            let obj = {
+              id: this.items[index].id,
+              url: this.items[index].url,
+              price: this.items[index].price,
+              referral: this.items[index].referral,
+              stock: this.items[index].stock,
+              referral: this.items[index].referral,
+              num: this.items[index].num,
+            };
+            this.users.unshift(obj);
+            this.items[index].num = this.items[index].num + 1;
+          },
+          del(index) {
+            if (confirm("你确定要删除吗")) {
+              this.users.splice(index, 1);
+            } else {
+              if (confirm("你确定要移出吗")) {
+                this.users.splice(index, 1);
+              }
+            }
+          },
+          sort(index) {
+            if (this.users[index].num > this.users[index].stock) {
+              this.users[index].num--;
+            } else {
+              if (this.users[index].num == this.items[index].stock) {
+                this.users.splice(index, 1);
+              }
+            }
+          },
+          jia(index) {
+            if (this.users[index].num + 1 <= this.users[index].stock) {
+              this.users[index].num++;
+            } else {
+              alert("库存就不足");
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
