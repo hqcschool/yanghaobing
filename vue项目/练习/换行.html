@@ -1,41 +1,64 @@
+当然可以!下面是一个简单的留言板示例，使用了HTML, CSS, JavaScript 和 Vue.js:
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="" />
-    <script src="../js/vue.js"></script>
+    <title>留言板</title>
+    <style>
+      #app {
+        width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+      #app textarea {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 10px;
+        padding: 5px;
+      }
+      #app button {
+        width: 100%;
+        padding: 10px;
+      }
+    </style>
   </head>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    #box {
-      width: 600px;
-      height: 400px;
-      margin: 0 auto;
-      border: 1px solid #ccc;
-    }
-    ul li {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-  </style>
   <body>
-    <div id="box">
-      <ul class="tab-title">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+    <div id="app">
+      <h1>留言板</h1>
+      <textarea v-model="message" placeholder="请输入留言内容"></textarea>
+      <button @click="addMessage">提交</button>
+      <ul>
+        <li v-for="(message, index) in messages" :key="index">
+          {{ message }}
+          <button @click="deleteMessage(index)">删除</button>
+        </li>
       </ul>
     </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          message: "",
+          messages: [],
+        },
+        methods: {
+          addMessage() {
+            if (this.message.trim() !== "") {
+              this.messages.push(this.message);
+              this.message = "";
+            }
+          },
+          deleteMessage(index) {
+            this.messages.splice(index, 1);
+          },
+        },
+      });
+    </script>
   </body>
-  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
-  <script></script>
 </html>
+```
+这段代码创建了一个简单的留言板，用户可以填写留言内容并提交。提交后，留言会显示在留言列表中，用户也可以点击删除按钮删除特定的留言。
+你可以将以上代码保存为一个HTML文件，然后在浏览器中打开查看效果。希望对你有帮助!如果有任何疑问，请随时提问。

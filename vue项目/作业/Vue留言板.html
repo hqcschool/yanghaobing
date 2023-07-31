@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/vue.js"></script>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .box {
+      width: 800px;
+      height: 500px;
+      background-color: rgb(240, 241, 241);
+      margin: auto;
+    }
+    h1 {
+      /* position: absolute;
+      top: -155px; */
+      width: 100%;
+      font-size: 100px;
+      font-weight: 500;
+      text-align: center;
+      color: rgba(175, 47, 47, 0.15);
+      -webkit-text-rendering: optimizeLegibility;
+      -moz-text-rendering: optimizeLegibility;
+      text-rendering: optimizeLegibility;
+    }
+    label {
+      content: "❯";
+      font-size: 22px;
+      height: 65.95px;
+      color: black;
+      padding: 10px 27px 10px 27px;
+    }
+    #web-lock {
+      width: 85%;
+      height: 100%;
+      padding: 16px 16px 16px 60px;
+      border: none;
+      background: rgba(248, 245, 245, 0.979);
+      box-shadow: inset 0 -2px 1px rgba(136, 228, 16, 0.87);
+      font-size: 30px;
+    }
+    input::placeholder {
+      color: rgba(127, 127, 127, 0.089);
+    }
+    .inp-box {
+      width: 500px;
+      height: 65.95px;
+      background-color: black;
+      margin: auto;
+    }
+    .footer {
+      display: flex;
+      width: 500px;
+      height: 65.95px;
+      background-color: rgb(240, 35, 8);
+      margin: auto;
+    }
+    #checkbox {
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+    p {
+      display: inline-block;
+      height: 65.95px;
+      width: 350px;
+      line-height: 65.95px;
+      text-align: center;
+    }
+    a {
+      height: 65.95px;
+      line-height: 65.95px;
+      cursor: pointer;
+    }
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <div class="box">
+        <h1>{{msg}}</h1>
+        <header>
+          <div class="inp-box">
+            <label>
+              <svg
+                t="1690802509584"
+                class="icon"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="2282"
+                width="16"
+                height="16">
+                <path
+                  d="M487.7 722.2l472.9-472.9c14.5-14.5 38-14.5 52.5 0s14.5 38 0 52.5L540.2 774.7c-14.5 14.5-38 14.5-52.5 0s-14.5-38 0-52.5z"
+                  p-id="2283"
+                  fill="#e6e6e6"></path>
+                <path
+                  d="M483.8 774.7L10.9 301.8c-14.5-14.5-14.5-38 0-52.5s38-14.5 52.5 0l472.9 472.9c14.5 14.5 14.5 38 0 52.5s-38 14.5-52.5 0z"
+                  p-id="2284"
+                  fill="#e6e6e6"></path>
+              </svg>
+            </label>
+            <input
+              type="text"
+              name=""
+              id="web-lock"
+              placeholder="what needs to be done"
+              v-model="mesage"
+              @keydown.enter="addMessage" />
+          </div>
+        </header>
+        <div class="footer" v-for="(message,index) in messages " :key="index">
+          <input
+            type="checkbox"
+            name="check"
+            id="checkbox"
+            v-model="message.completed" />
+          <p :class="">{{message}}</p>
+          <a @click="del(index)"> 删除</a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    let id = 1;
+    new Vue({
+      el: "#box",
+      data: {
+        msg: "todos",
+        messages: [],
+        mesage: "",
+      },
+      methods: {
+        addMessage() {
+          if (this.mesage.trim() !== "") {
+            this.messages.push(this.mesage);
+            this.mesage = "";
+          }
+        },
+        del(index) {
+          this.messages.splice(index, 1);
+        },
+      },
+    });
+  </script>
+</html>

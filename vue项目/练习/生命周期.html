@@ -6,12 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="" />
-    <script src=""></script>
+    <script src="../js/vue.js"></script>
   </head>
-  <style></style>
+  <style>
+    ::selection {
+      color: bisque;
+    }
+  </style>
   <body>
-    <div id="box">123</div>
+    <div id="box">
+      <h2 v-if="a">你好啊</h2>
+      <h2 :style="{opactiy}">这是逐渐消失的文字</h2>
+    </div>
   </body>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
-  <script></script>
+  <script>
+    new Vue({
+      el: "#box",
+      data: {
+        a: true,
+        opactiy: 1,
+      },
+      methods: {},
+      mounted() {
+        console.log("mounted", this);
+        setInterval(() => {
+          this.opactiy -= 0.01;
+          if (this.opactiy <= 0) this.opactiy = 1;
+        }, 16);
+      },
+    });
+  </script>
 </html>
