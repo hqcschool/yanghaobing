@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/vue.js"></script>
+  </head>
+  <style></style>
+  <body>
+    <div id="box">
+      <p v-suibian="abc">{{123}}</p>
+      <input type="text" v-suibian="abc" v-model="abc" />
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#box",
+      directives: {
+        suibian(el, binding) {
+          el.innerHTML = binding.value / 10;
+          // bind: function (el, binding) {
+          //   console.log("@", el);
+          //   console.log(binding);
+          // },
+          // inserted(element, binding) {
+          //   console.log(element);
+          //   element.focus();
+          // },
+          // update(element, binding) {
+          //   console.log(666);
+          //   element.value = binding.value;
+          // },
+        },
+        // add10(el, binding) {
+        //   console.log(el, binding);
+        //   el.innerHTML = binding.value * 10;
+        // },
+      },
+      data: {
+        abc: 123,
+      },
+    });
+  </script>
+</html>
