@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/vue.js"></script>
+    <script src="./123.vue"></script>
+  </head>
+  <style>
+    h1 {
+      text-decoration: line-through;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <button v-on:click="count+=1">Add 1</button>
+      <h1 v-if="sianshi">{{count}}</h1>
+      <button v-on:click="say('你好世界')">你好世界</button>
+      <input type="text" @keydown="key" />
+      <ul>
+        <li v-for="n in 5000">这是第{{n}}个数</li>
+      </ul>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    new Vue({
+      el: "#box",
+      data: {
+        sianshi: true,
+        count: 0,
+      },
+      methods: {
+        say: function (message) {
+          alert(message);
+        },
+        key(event) {
+          console.log(event.target.value);
+          console.log(event.key, event.keyCode);
+        },
+      },
+    });
+  </script>
+</html>

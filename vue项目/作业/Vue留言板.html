@@ -15,10 +15,13 @@
       box-sizing: border-box;
     }
     .box {
+      position: relative;
       width: 800px;
-      height: 500px;
+      height: 60vh;
       background-color: rgb(240, 241, 241);
       margin: auto;
+      overflow: hidden;
+      overflow: auto;
     }
     h1 {
       /* position: absolute;
@@ -40,7 +43,7 @@
       padding: 10px 27px 10px 27px;
     }
     #web-lock {
-      width: 85%;
+      width: 88%;
       height: 100%;
       padding: 16px 16px 16px 60px;
       border: none;
@@ -63,6 +66,7 @@
       height: 65.95px;
       background-color: rgb(240, 35, 8);
       margin: auto;
+      z-index: 1;
     }
     #checkbox {
       width: 50px;
@@ -76,6 +80,7 @@
       width: 350px;
       line-height: 65.95px;
       text-align: center;
+      font-size: 25px;
     }
     a {
       height: 65.95px;
@@ -83,7 +88,23 @@
       cursor: pointer;
     }
     .completed {
+      color: rgba(127, 127, 127, 0.5);
       text-decoration: line-through;
+    }
+    #check {
+      width: 1px;
+      height: 1px;
+      border: none;
+      opacity: 0;
+    }
+    footer {
+      position: fixed;
+      bottom: 307px;
+      width: 800px;
+      height: 60px;
+      background: gold;
+      margin: auto;
+      margin-top: 15px;
     }
   </style>
   <body>
@@ -93,24 +114,7 @@
         <header>
           <div class="inp-box">
             <label>
-              <svg
-                t="1690802509584"
-                class="icon"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="2282"
-                width="16"
-                height="16">
-                <path
-                  d="M487.7 722.2l472.9-472.9c14.5-14.5 38-14.5 52.5 0s14.5 38 0 52.5L540.2 774.7c-14.5 14.5-38 14.5-52.5 0s-14.5-38 0-52.5z"
-                  p-id="2283"
-                  fill="#e6e6e6"></path>
-                <path
-                  d="M483.8 774.7L10.9 301.8c-14.5-14.5-14.5-38 0-52.5s38-14.5 52.5 0l472.9 472.9c14.5 14.5 14.5 38 0 52.5s-38 14.5-52.5 0z"
-                  p-id="2284"
-                  fill="#e6e6e6"></path>
-              </svg>
+              <input type="checkbox" name="" id="check" v-model="completed" />
             </label>
             <input
               type="text"
@@ -126,32 +130,46 @@
             type="checkbox"
             name="check"
             id="checkbox"
-            v-model="message.completed" />
-          <p :class="">{{message}}</p>
+            v-model="completed"
+            @click="toggle(index)"
+            :value="message.completed" />
+          <p :class="{'completed':completed}">{{message}}</p>
           <a @click="del(index)"> 删除</a>
         </div>
+        <footer>已完成<span>{{sum}}</span>项</footer>
       </div>
     </div>
   </body>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
   <script>
-    let id = 1;
     new Vue({
       el: "#box",
       data: {
         msg: "todos",
+        completed: false,
         messages: [],
         mesage: "",
+        sum: 0,
       },
       methods: {
         addMessage() {
           if (this.mesage.trim() !== "") {
             this.messages.push(this.mesage);
+            this.completed = false;
             this.mesage = "";
+            this.sum++;
           }
         },
         del(index) {
           this.messages.splice(index, 1);
+        },
+        toggle(index) {
+          this.messages[index].completed = !this.messages[index].completed;
+        },
+      },
+      watch: {
+        completed(newval, oldval) {
+          console.log(this.completed);
         },
       },
     });
