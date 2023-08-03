@@ -16,7 +16,7 @@
   </style>
   <body>
     <div id="box">
-      <button v-on:click="count+=1">Add 1</button>
+      <button v-on:click="count+=1" v-if="show">Add 1</button>
       <h1 v-if="sianshi">{{count}}</h1>
       <button v-on:click="say('你好世界')">你好世界</button>
       <input type="text" @keydown="key" />
@@ -30,6 +30,7 @@
     new Vue({
       el: "#box",
       data: {
+        show: false,
         sianshi: true,
         count: 0,
       },

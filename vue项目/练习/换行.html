@@ -25,6 +25,9 @@
   </head>
   <body>
     <div id="app">
+      <ul>
+        <li v-for="(item, index) in items" :key="index">{{item.name}}</li>
+      </ul>
       <h1>留言板</h1>
       <textarea v-model="message" placeholder="请输入留言内容"></textarea>
       <button @click="addMessage">提交</button>
@@ -43,6 +46,12 @@
         data: {
           message: "",
           messages: [],
+          items: [
+            {
+              Id: 1,
+              name: "张三",
+            },
+          ],
         },
         methods: {
           addMessage() {

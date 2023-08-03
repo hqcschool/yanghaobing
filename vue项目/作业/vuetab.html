@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/vue.js"></script>
+  </head>
+  <style>
+    #val {
+      width: 500px;
+      height: 500px;
+      border: 1px solid #000;
+      overflow: hidden;
+    }
+
+    button {
+      width: 160px;
+      height: 50px;
+      border: 1px solid #000;
+      margin-left: 3px;
+    }
+    img {
+      width: 500px;
+      height: 500px;
+    }
+    #img1 {
+      display: block;
+    }
+  </style>
+
+  <body>
+    <div id="box">
+      <tab></tab>
+    </div>
+    <div id="lubo"></div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    const tab = Vue.extend({
+      data() {
+        return {
+          currtab: "tab",
+        };
+      },
+
+      template: `
+        <div id="val">
+          
+                   <button @click="currtab='tab'">tab</button>  
+                   <button @click="currtab='tab1'">tab1</button>  
+                   <button @click="currtab='tab2'">tab2</button>  
+           <div v-show="currtab ==='tab'" id=img1>
+            <img src="https://img1.baidu.com/it/u=3539595421,754041626&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1691168400&t=92147dc54c087237b747be417bfdc579" alt="">
+            </div>
+             <div v-show="currtab==='tab1'">
+            <img src="https://img2.baidu.com/it/u=3853345508,384760633&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=1200" alt="">
+            </div>
+             <div v-show="currtab==='tab2'">
+            <img src="https://img1.baidu.com/it/u=1458656822,2078909008&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=750" alt="">
+            </div>
+
+     
+        </div>`,
+    });
+    // const myimage = Vue.extend({
+    //   data() {
+    //     return {
+    //       src: "https://img1.baidu.com/it/u=2443073346,2065367808&fm=253&fmt=auto&app=138&f=JPEG?w=375&h=500",
+    //       img: "https://img0.baidu.com/it/u=1944566169,3259341742&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=666",
+    //       src1: "https://img0.baidu.com/it/u=2551964321,4177619765&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=711",
+    //     };
+    //   },
+
+    //   template: `
+
+    //     <img src="{{src}}" alt="">
+    //     <img src="{{img}}" alt="">
+    //     <img src="{{src1}}" alt="">
+
+    //   `,
+    // });
+    const vm = new Vue({
+      el: "#box",
+      components: {
+        tab,
+        // myimage,
+      },
+    });
+  </script>
+</html>

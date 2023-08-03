@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/vue.js"></script>
+  </head>
+  <style></style>
+  <body>
+    <div id="box" :x="x">
+      <h2 v-text="x"></h2>
+      <h2>当前的x值是：{{x}}</h2>
+      <button @click="add">点击我+1</button>
+      <button @click="bye">销毁</button>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    vm = new Vue({
+      el: "#box",
+      data: {
+        x: 1,
+      },
+      methods: {
+        add() {
+          console.log("add");
+          this.x++;
+        },
+        bye() {
+          console.log("bye");
+          this.$destroy();
+        },
+      },
+      beforeCreate() {
+        console.log("beforeCreate阶段");
+      },
+      created() {
+        console.log("created阶段");
+      },
+      beforeMount() {
+        console.log("beforeMount阶段");
+      },
+      mounted() {
+        console.log("mounted阶段");
+      },
+      beforeUpdate() {
+        console.log("beforeUpdate阶段");
+      },
+      updated() {
+        console.log("updated阶段");
+      },
+      beforeDestroy() {
+        console.log("beforeDestroy阶段");
+      },
+      destroyed() {
+        console.log("destroyed阶段");
+      },
+    });
+  </script>
+</html>

@@ -17,11 +17,9 @@
     .box {
       position: relative;
       width: 800px;
-      height: 60vh;
+      height: 73vh;
       background-color: rgb(240, 241, 241);
       margin: auto;
-      overflow: hidden;
-      overflow: auto;
     }
     h1 {
       /* position: absolute;
@@ -39,14 +37,15 @@
       content: "❯";
       font-size: 22px;
       height: 65.95px;
+      line-height: 65.95px;
       color: black;
       padding: 10px 27px 10px 27px;
     }
     #web-lock {
-      width: 88%;
+      width: 78%;
       height: 100%;
       padding: 16px 16px 16px 60px;
-      border: none;
+      border: 1px solid red;
       background: rgba(248, 245, 245, 0.979);
       box-shadow: inset 0 -2px 1px rgba(136, 228, 16, 0.87);
       font-size: 30px;
@@ -57,22 +56,27 @@
     .inp-box {
       width: 500px;
       height: 65.95px;
-      background-color: black;
+      background-color: rgb(235, 234, 234);
       margin: auto;
+    }
+    ul {
+      list-style: none;
     }
     .footer {
       display: flex;
+      justify-content: center;
       width: 500px;
       height: 65.95px;
+      border-bottom: 3px dotted rgb(20, 20, 20);
       background-color: rgb(240, 35, 8);
+      line-height: 65.95px;
+      color: black;
       margin: auto;
-      z-index: 1;
+      z-index: -1;
     }
     #checkbox {
       width: 50px;
       height: 50px;
-      margin-top: 10px;
-      margin-left: 10px;
     }
     p {
       display: inline-block;
@@ -92,10 +96,11 @@
       text-decoration: line-through;
     }
     #check {
-      width: 1px;
-      height: 1px;
-      border: none;
-      opacity: 0;
+      width: 50px;
+      height: 40px;
+      border: 3px solid red;
+      text-align: center;
+      line-height: 65.95px;
     }
     footer {
       position: fixed;
@@ -114,7 +119,7 @@
         <header>
           <div class="inp-box">
             <label>
-              <input type="checkbox" name="" id="check" v-model="completed" />
+              <input type="checkbox" name="" id="check" v-model="allstatus" />
             </label>
             <input
               type="text"
@@ -122,54 +127,104 @@
               id="web-lock"
               placeholder="what needs to be done"
               v-model="mesage"
-              @keydown.enter="addMessage" />
+              @keyup.enter="addMessage" />
           </div>
         </header>
-        <div class="footer" v-for="(message,index) in messages " :key="index">
-          <input
-            type="checkbox"
-            name="check"
-            id="checkbox"
-            v-model="completed"
-            @click="toggle(index)"
-            :value="message.completed" />
-          <p :class="{'completed':completed}">{{message}}</p>
-          <a @click="del(index)"> 删除</a>
-        </div>
-        <footer>已完成<span>{{sum}}</span>项</footer>
+        <ul>
+          <li class="footer" v-for="(item,index) in messages " :key="index">
+            <input
+              type="checkbox"
+              name=""
+              id="checkbox "
+              v-model="item.status"
+              :style="{height:width,width:height ,marginTop:'5px'}" />
+            <p :class="{completed:item.status}">{{item.cond}}</p>
+            <a @click.prevent="del(index)">删除</a>
+          </li>
+        </ul>
+
+        <!-- <footer>已完成<span>{{sum}}</span>项</footer> -->
       </div>
     </div>
   </body>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
   <script>
-    new Vue({
+    const vm = new Vue({
       el: "#box",
       data: {
+        width: "50px",
+        height: "50px",
+        active: "all",
         msg: "todos",
         completed: false,
-        messages: [],
+        messages: [
+          {
+            id: 1,
+            cond: "吃饭",
+            status: false,
+          },
+          {
+            id: 2,
+            cond: "睡觉",
+            status: false,
+          },
+          {
+            id: 3,
+            cond: "打豆豆",
+            status: false,
+          },
+        ],
         mesage: "",
         sum: 0,
       },
       methods: {
         addMessage() {
-          if (this.mesage.trim() !== "") {
-            this.messages.push(this.mesage);
-            this.completed = false;
-            this.mesage = "";
-            this.sum++;
-          }
+          if (!this.mesage.trim()) return;
+          this.messages.push({
+            id: this.messages.length + 1,
+            cond: this.mesage,
+            status: false,
+          });
+          this.mesage = null;
         },
         del(index) {
           this.messages.splice(index, 1);
         },
         toggle(index) {
+          console.log(666);
           this.messages[index].completed = !this.messages[index].completed;
         },
       },
       watch: {
         completed(newval, oldval) {
           console.log(this.completed);
+        },
+      },
+      computed: {
+        allstatus: {
+          get() {
+            return this.messages.every((item) => item.status);
+          },
+          set(val) {
+            this.messages.forEach((item) => (item.status = val));
+          },
+        },
+        fliterList() {
+          let data = [];
+          switch (this.active) {
+            case "all":
+              console.log(666);
+              data = this.messages;
+              console.log(data);
+              break;
+            case "completed":
+              data = this.messages.filter((item) => item.completed);
+              break;
+            case "uncompleted":
+              data = this.messages.filter((item) => !item.completed);
+              break;
+          }
+          return data;
         },
       },
     });
